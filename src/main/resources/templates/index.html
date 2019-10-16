@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Maxx Bank</title>
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+
+    <script src="/js/main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Håndtér Form
+            $("#searchform").submit(function (event) {
+               event.preventDefault(); // stopper formen
+                ajax_submit();
+            });
+
+            // Validering
+            $("#form1").submit(function(e) {
+                e.preventDefault();
+                var username2 = $('#username2').val();
+                var password2 = $('#password2').val();
+                $(".error").remove();
+                if (username2.length < 1) {
+                    $('#username2').after('<span class="error">This field is required</span>');
+                }else {
+                }
+            });
+        });
+
+        function ajax_submit() {
+            var search = {}; // dictionary
+            var noUserFound = true;
+            search["username"] = $("#username").val();
+            $.ajax({
+                type:"POST",
+                contentType:"application/json",
+                url:"api/search",
+                dataType:'json',
+                data:JSON.stringify(search),
+                success: function (data) {
+                    console.log(data);
+
+                   $.each(data.result,function (index, value) {
+                       noUserFound = false;
+                       $("#responsetext").append("<form><input type='text' value='"+value.name+"'>"
+                           +"<input type='submit' value='View'></form>");
+                       $("#status").html("Found these users:");
+                   });
+                   if (noUserFound === true) {
+                       $("#status").html(" No user found. Try some other name ");
+                       $("#responsetext").html("");
+                   }
+                },
+                error: function (data) {
+                    console.log(data);
+                    $("#responsetext").html("Fejl i request: " + " code: " + data.status + " "
+                        + data.responseJSON.msg);
+                }
+            });
+        }
+    </script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h3>Velkommen til Maxx Bank Mandag</h3>
+Søg efter bruger:
+<form id="searchform">
+    <input type="text" id="username" >
+    <input type="submit">
+</form>
+<div id="status">
+    Status
+</div>
+<div id="responsetext">
+</div>
+
+<h2>Login</h2>
+<form id="form1" method="post" action="/login">
+    <input type="text" id="username2" placeholder="Brugernavn" >
+    <input type="text" id="password2" placeholder="Password" >
+    <input type="submit" value="Login">
+</form>
+<a href="basic_ajax.html">Basic AJAX</a>
+<a href="validation.html">html validation</a>
+<a href="jsOrjq.html">javascript validation</a>
+</body>
+</html>

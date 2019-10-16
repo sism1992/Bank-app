@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+running AJAX basic example...
+Søg efter bruger:
+<form id="searchform">
+    <input type="text" name="un" id="username" >
+    <input type="submit">
+</form>
+
+<div id="resultdiv">
+    Resultat kommer her:
+
+</div>
+</body>
+<script>
+    // Access the form element...
+
+        var form = document.getElementById("searchform");
+
+        // ...and take over its submit event.
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+           // alert("search form presssed")
+            sendData(form.un.value);
+        });
+
+
+        function sendData(data) {
+            // 1. Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // 2. Configure it: POST-request
+            xhr.open('POST', '/api/search');
+            xhr.setRequestHeader("Content-type", "application/json");
+            var search = {}; // dictionary
+            search["username"] = data;
+
+            // 3. Send the request over the network
+            xhr.send(JSON.stringify(search));
+
+            // 4. This will be called after the response is received
+            xhr.onload = function () {
+                if (xhr.status != 200) { // analyze HTTP status of the response
+                    alert("Error" + xhr.statusText); // e.g. 404: Not Found
+                } else { // show the result
+                    // alert("OK" + xhr.responseText); // e.g. 404: Not Found
+                    var para = document.createElement("P"); // <p></p>                      // Create a <p> node
+                    var t = document.createTextNode(xhr.responseText);      // Create a text node
+                    para.appendChild(t);                                          // Append the text to <p>
+                    document.getElementById("resultdiv").appendChild(para);
+                }
+            };
+
+            xhr.onerror = function () {
+                alert("Request failed");
+            };
+        }
+</script>
+</html>

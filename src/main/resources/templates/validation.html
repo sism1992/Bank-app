@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html validation form</title>
+</head>
+<body>
+<h2>how html validation works...</h2>
+<form>
+    <div>
+    <div>
+    <label for="choose">which singer do you like more Bono or Prince?</label>
+    <input type="text" id="choose" required pattern="Bono|Prince">
+    </div>
+    <div>
+        <label for="number">how many times have you been to a concert to see them?</label>
+        <input type="number" id="number" name="amount" required min="10" max="100">
+    </div>
+        <button>submit</button>
+    </div>
+
+</form>
+<a href="index.html">return back</a>
+</body>
+</html>

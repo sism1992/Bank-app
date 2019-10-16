@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>difference javascript & jQuery </title>
+</head>
+<style>
+    #div_content{
+        height: 200px;
+        width: 200px;
+        background-color: greenyellow;
+    }
+</style>
+<body>
+<div id="div-content">
+    existing content
+</div>
+<button id="btn_addcontent">add content</button>
+<button id="btn_removecontent">remove content</button>
+</body>
+<script src="http://code.jquery.com/jquery-3.3.1.js">
+
+    //normal javascript
+    var divelement = document.getElementById("div_content");
+
+    function addcontent(){
+        divelement.innerHTML = divelement.innerHTML + "new content";
+    }
+    function removecontent(){
+        divelement.parentNode.removeChild(divelement);
+    }
+    var btnadddcontent = document.getElementById("btn_addcontent");
+
+    btnadddcontent.onclick = addcontent();
+
+    var btnremovecontent = document.getElementById("btn_removecontent");
+
+    btnremovecontent.onclick = removecontent();
+
+    /*jQuery
+    var divelement = $("#div-content")
+
+    function addcontent(){
+        divelement.append("new content")
+    }
+    function removecontent(){
+        divelement.remove();
+
+    }
+    $(btnadddcontent).on("click", addcontent());
+
+    $(btnremovecontent).on("click", removecontent());*/
+
+
+</script>
+<div>
+    <a  id="return" href="index.html">return back</a>
+</div>
+</html>

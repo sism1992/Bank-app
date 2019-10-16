@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mouse exsample</title>
+</head>
+<body>
+<h1 id="demo" onmouseover="mouseOver()" onmouseout="mouseOut()">mouse over this point</h1>
+<script>
+    //javascript
+    function mouseOver() {
+        document.getElementById("demo").style.color = "red";
+
+    }
+    function mouseOut() {
+        document.getElementById("demo").style.color = "black";
+
+    }
+</script>
+<script>
+    //jQuery
+    $(document).ready(function () {
+        $("#demo").mouseover(function () {
+            this.style.color = "yellow";
+        });
+        $("#demo").mouseout(function () {
+            this.style.color = "pink";
+        });
+    })
+</script>
+</body>
+</html>
